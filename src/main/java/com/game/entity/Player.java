@@ -1,23 +1,55 @@
 package com.game.entity;
 
 import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.NamedQueries;
 
-
+@Entity
+@Table(name = "player", schema = "rpg")
+@NamedQueries({
+        @NamedQuery(
+                name = "Player.length",
+                query = "SELECT COUNT(p) FROM Player p"
+        )
+})
 public class Player {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false, length = 12)
     private String name;
 
+    @Column(nullable = false, length = 30)
     private String title;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private Race race;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private Profession profession;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date birthday;
 
+    @Column(nullable = false)
     private Boolean banned;
 
+    @Column(nullable = false)
     private Integer level;
 
     public Player() {
